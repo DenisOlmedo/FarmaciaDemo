@@ -1,0 +1,14 @@
+package com.projeto.rules;
+
+import java.lang.Number;
+import com.projeto.model.Aprovacao;
+
+rule "reprovaCompra"
+	dialect "mvel"
+	when
+		Aprovacao( aprovado == false )
+	then
+		Aprovacao fact0 = new Aprovacao();
+		fact0.setMensagem( "Compra não aprovada, ultrapassado o limite de produtos de uma PA." );
+		insert( fact0 );
+end
